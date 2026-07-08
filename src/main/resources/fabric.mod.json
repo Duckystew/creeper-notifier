@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "creeper-notifier",
+	"version": "${version}",
+	"name": "Creeper Notifier",
+	"description": "Notifications for creepers!",
+	"authors": [
+		"Ankpudding"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/creeper-notifier/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.ankpudding.creepernotifier.CreeperNotifier"
+		]
+	},
+	"mixins": [
+		"creeper-notifier.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
