@@ -8,8 +8,7 @@
 		"Ankpudding"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Duckystew/creeper-notifier"
 	},
 	"license": "MIT",
 	"icon": "assets/creeper-notifier/icon.png",
