@@ -16,6 +16,10 @@ repositories {
 		name = "Terraformers"
 		url = "https://maven.terraformersmc.com/"
 	}
+	maven {
+		name 'Xander Maven'
+		url 'https://maven.isxander.dev/releases'
+	}
 }
 
 dependencies {
@@ -25,7 +29,9 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
 	implementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+	implementation("dev.isxander:yet-another-config-lib:${project.yacl_version}")
 }
 
 processResources {

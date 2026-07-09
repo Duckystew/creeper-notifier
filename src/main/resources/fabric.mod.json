@@ -16,7 +16,8 @@
 	"entrypoints": {
 		"client": [
 			"com.ankpudding.creepernotifier.CreeperNotifier"
-		]
+		],
+		"modmenu": [ "com.ankpudding.creepernotifier.ModMenuCompat" ]
 	},
 	"mixins": [
 		"creeper-notifier.mixins.json"
@@ -25,6 +26,7 @@
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.2",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"yet_another_config_lib_v3": ">=3.9.5"
 	}
 }
