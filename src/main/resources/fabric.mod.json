@@ -8,7 +8,8 @@
 		"Ankpudding"
 	],
 	"contact": {
-		"sources": "https://github.com/Duckystew/creeper-notifier"
+		"sources": "https://github.com/Duckystew/creeper-notifier",
+		"issues": "https://github.com/Duckystew/creeper-notifier/issues"
 	},
 	"license": "MIT",
 	"icon": "assets/creeper-notifier/icon.png",
