@@ -25,16 +25,11 @@ public class ConfigHandler {
     @SerialEntry
     @AutoGen(category = "main")
     @TickBox
-    public boolean myCoolBoolean = true;
+    public boolean modEnabled = true;
 
     @SerialEntry
     @AutoGen(category = "main")
-    @IntSlider(min = 0, max = 100, step = 1)
-    public int myCoolInteger = 5;
-
-    @SerialEntry(comment = "This string is amazing")
-    @AutoGen(category = "main")
-    @StringField
-    public String myCoolString = "How amazing!";
+    @IntSlider(min = 0, max = 25, step = 5)
+    public int creeperDetectionDistance = 10;
 
 }
