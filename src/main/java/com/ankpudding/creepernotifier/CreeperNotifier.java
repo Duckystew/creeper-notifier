@@ -30,24 +30,26 @@ public class CreeperNotifier implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ConfigHandler config = ConfigHandler.HANDLER.instance();
-			float detectionDistance = config.myCoolInteger;
-            if (client.level != null && client.player != null){
-				boolean creeperDetected = false;
-				float minDistance = detectionDistance;
-            	for(Entity entity : client.level.entitiesForRendering()){
-					if(entity instanceof Creeper creeper){
-						float distance = creeper.distanceTo(client.player);
-						if(distance <= minDistance) {
-							minDistance = distance;
-							creeperDetected = true;
+			if(config.modEnabled) {
+				float detectionDistance = config.creeperDetectionDistance;
+				if (client.level != null && client.player != null) {
+					boolean creeperDetected = false;
+					float minDistance = detectionDistance;
+					for (Entity entity : client.level.entitiesForRendering()) {
+						if (entity instanceof Creeper creeper) {
+							float distance = creeper.distanceTo(client.player);
+							if (distance <= minDistance) {
+								minDistance = distance;
+								creeperDetected = true;
+							}
 						}
 					}
-				}
-				if(creeperDetected) {
-					int value = Math.clamp(Math.round((255 / detectionDistance)  * minDistance), 0, 255);
-					Color color = new Color(255, value, value);
-					Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
-					client.player.sendOverlayMessage(message);
+					if (creeperDetected) {
+						int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
+						Color color = new Color(255, value, value);
+						Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
+						client.player.sendOverlayMessage(message);
+					}
 				}
 			}
 		});

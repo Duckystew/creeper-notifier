@@ -8,6 +8,5 @@ public class ModMenuCompat implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory(){
         return parentScreen -> (Screen) ConfigHandler.HANDLER.generateGui().generateScreen(parentScreen);
-
     }
 }

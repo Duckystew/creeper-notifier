@@ -1,3 +1,5 @@
 {
-  "yacl3.config.creeper-notifier:config.myCoolBoolean": "Chicken Toggler"
+  "yacl3.config.creeper-notifier:config.category.main": "Settings",
+  "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Detection Distance",
+  "yacl3.config.creeper-notifier:config.modEnabled": "Mod Enabled"
 }
