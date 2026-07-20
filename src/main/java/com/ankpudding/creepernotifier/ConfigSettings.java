@@ -3,7 +3,7 @@ package com.ankpudding.creepernotifier;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.*;
 
-public class ConfigObject {
+public class ConfigSettings {
     @SerialEntry
     @AutoGen(category = "main")
     @TickBox

@@ -36,7 +36,7 @@ public class CreeperNotifier implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 
-            ConfigObject config = ConfigHandler.getInstance();
+            ConfigSettings config = ConfigHandler.getInstance();
 
 			if(config.modEnabled) {
 				float detectionDistance = config.creeperDetectionDistance;

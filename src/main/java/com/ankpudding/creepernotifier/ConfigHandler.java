@@ -13,10 +13,10 @@ public class ConfigHandler {
         }
     }
 
-    public static ConfigObject getInstance(){
+    public static ConfigSettings getInstance(){
         if (isConfigurable()){
             return YACLConfig.HANDLER.instance();
         }
-        return new ConfigObject();
+        return new ConfigSettings();
     }
 }
