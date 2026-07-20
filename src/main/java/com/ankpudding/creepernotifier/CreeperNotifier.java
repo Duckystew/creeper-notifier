@@ -26,10 +26,13 @@ public class CreeperNotifier implements ClientModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		ConfigHandler.HANDLER.load();
+
+		ConfigHandler.init();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            ConfigHandler config = ConfigHandler.HANDLER.instance();
+
+            ConfigObject config = ConfigHandler.getInstance();
+
 			if(config.modEnabled) {
 				float detectionDistance = config.creeperDetectionDistance;
 				if (client.level != null && client.player != null) {
