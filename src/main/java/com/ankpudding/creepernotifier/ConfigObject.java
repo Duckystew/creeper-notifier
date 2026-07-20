@@ -17,12 +17,12 @@ public class ConfigObject {
 
     @SerialEntry
     @AutoGen(category = "main", group = "alertSettings")
-    @FloatSlider(min = 0.0f, max = 10.0f, step = 0.1f)
+    @FloatSlider(min = 0.0f, max = 1.0f, step = 0.1f)
     public float alertVolume = 5.0f;
 
     @SerialEntry
     @AutoGen(category = "main", group = "alertSettings")
-    @FloatSlider(min = 0.0f, max = 10.0f, step = 0.1f)
+    @FloatSlider(min = 0.0f, max = 2.0f, step = 0.1f)
     public float alertPitch = 2.0f;
 
     @SerialEntry
