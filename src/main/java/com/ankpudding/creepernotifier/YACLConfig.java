@@ -12,9 +12,8 @@ public class YACLConfig extends ConfigObject{
             .id(Identifier.fromNamespaceAndPath("creeper-notifier", "config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
                     .setPath(FabricLoader.getInstance().getConfigDir().resolve("creeper-notifier.json5"))
-                    .appendGsonBuilder(GsonBuilder::setPrettyPrinting) // not needed, pretty print by default
+                    .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
                     .setJson5(true)
                     .build())
             .build();
-
 }

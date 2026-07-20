@@ -35,9 +35,12 @@ public class CreeperNotifier implements ClientModInitializer {
 
 			if(config.modEnabled) {
 				float detectionDistance = config.creeperDetectionDistance;
+				//Make sure that the player and level is not null aka only run the detection code when the player is in a game.
 				if (client.level != null && client.player != null) {
 					boolean creeperDetected = false;
 					float minDistance = detectionDistance;
+
+					//Get the distance to the closest creeper and check if it is in the user configured detection distance.
 					for (Entity entity : client.level.entitiesForRendering()) {
 						if (entity instanceof Creeper creeper) {
 							float distance = creeper.distanceTo(client.player);
@@ -47,9 +50,12 @@ public class CreeperNotifier implements ClientModInitializer {
 							}
 						}
 					}
+
 					if (creeperDetected) {
+						//Logic to make the text become more red as they approach a creeper
 						int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
 						Color color = new Color(255, value, value);
+
 						Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
 						client.player.sendOverlayMessage(message);
 					}
