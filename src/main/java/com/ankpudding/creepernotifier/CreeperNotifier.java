@@ -3,9 +3,12 @@ package com.ankpudding.creepernotifier;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Creeper;
 import org.slf4j.Logger;
@@ -20,6 +23,8 @@ public class CreeperNotifier implements ClientModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	public static long ticksElapsed = 0;
 
 	@Override
 	public void onInitializeClient() {
@@ -52,6 +57,10 @@ public class CreeperNotifier implements ClientModInitializer {
 					}
 
 					if (creeperDetected) {
+						if (ticksElapsed % config.alertInterval == 0) {
+							Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, config.alertPitch, config.alertVolume));
+						}
+
 						//Logic to make the text become more red as they approach a creeper
 						int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
 						Color color = new Color(255, value, value);
@@ -61,6 +70,7 @@ public class CreeperNotifier implements ClientModInitializer {
 					}
 				}
 			}
+			ticksElapsed++;
 		});
 	}
 

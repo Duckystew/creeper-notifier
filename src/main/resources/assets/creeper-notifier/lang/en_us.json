@@ -1,5 +1,7 @@
 {
   "yacl3.config.creeper-notifier:config.category.main": "Settings",
+  "yacl3.config.creeper-notifier:config.category.main.group.alertSettings": "Alert Settings",
   "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Detection Distance",
-  "yacl3.config.creeper-notifier:config.modEnabled": "Mod Enabled"
+  "yacl3.config.creeper-notifier:config.modEnabled": "Mod Enabled",
+  "yacl3.config.creeper-notifier:config.alertInterval": "Alert Interval (In ticks)"
 }
