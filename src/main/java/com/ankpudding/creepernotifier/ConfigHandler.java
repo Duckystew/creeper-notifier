@@ -11,6 +11,9 @@ public class ConfigHandler {
         if (isConfigurable()){
             YACLConfig.HANDLER.load();
         }
+        else{
+            CreeperNotifier.LOGGER.warn("CreeperNotifier: Did not find Mod Menu or YACL. No configuration available");
+        }
     }
 
     public static ConfigSettings getInstance(){
