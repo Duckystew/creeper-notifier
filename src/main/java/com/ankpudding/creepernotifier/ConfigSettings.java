@@ -11,6 +11,11 @@ public class ConfigSettings {
 
     @SerialEntry
     @AutoGen(category = "main")
+    @TickBox
+    public boolean alertTextVisible = true;
+
+    @SerialEntry
+    @AutoGen(category = "main")
     @IntSlider(min = 0, max = 25, step = 1)
     public int creeperDetectionDistance = 10;
 

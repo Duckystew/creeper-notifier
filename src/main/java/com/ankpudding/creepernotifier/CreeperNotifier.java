@@ -61,12 +61,14 @@ public class CreeperNotifier implements ClientModInitializer {
 							Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, config.alertPitch, config.alertVolume));
 						}
 
-						//Logic to make the text become more red as they approach a creeper
-						int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
-						Color color = new Color(255, value, value);
+						if (config.alertTextVisible) {
+							//Logic to make the text become more red as they approach a creeper
+							int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
+							Color color = new Color(255, value, value);
 
-						Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
-						client.player.sendOverlayMessage(message);
+							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
+							client.player.sendOverlayMessage(message);
+						}
 					}
 				}
 			}

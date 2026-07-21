@@ -3,6 +3,7 @@
   "yacl3.config.creeper-notifier:config.category.main.group.alertSettings": "Varningsinställningar",
   "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Upptäcktsavstånd",
   "yacl3.config.creeper-notifier:config.modEnabled": "Mod Aktiverat",
+  "yacl3.config.creeper-notifier:config.alertTextVisible": "Varningstext Synlig",
   "yacl3.config.creeper-notifier:config.alertInterval": "Varningsintervall (I ticks)",
   "yacl3.config.creeper-notifier:config.alertVolume": "Varningsvolym",
   "yacl3.config.creeper-notifier:config.alertPitch": "Varningstonhöjd"
