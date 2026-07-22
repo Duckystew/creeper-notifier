@@ -11,6 +11,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.phys.AABB;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,37 +40,26 @@ public class CreeperNotifier implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ConfigSettings config = ConfigHandler.getInstance();
 
+			//Check if that both client.level and client.player is not null. To prevent detection code from running when not in a game.
 			if (client.level != null && client.player != null) {
 				boolean enabledInGamemode = isEnabledInGamemode(client, config);
 
 				if (config.modEnabled && enabledInGamemode) {
 					float detectionDistance = config.creeperDetectionDistance;
-					//Make sure that the player and level is not null aka only run the detection code when the player is in a game.
-					boolean creeperDetected = false;
-					float minDistance = detectionDistance;
 
-					//Get the distance to the closest creeper and check if it is in the user configured detection distance.
-					for (Entity entity : client.level.entitiesForRendering()) {
-						if (entity instanceof Creeper creeper) {
-							float distance = creeper.distanceTo(client.player);
-							if (distance <= minDistance) {
-								minDistance = distance;
-								creeperDetected = true;
-							}
-						}
-					}
+					Float creeperDetected = getClosestEntity(client, Creeper.class, (int) Math.ceil(detectionDistance));
 
-					if (creeperDetected) {
+					if (creeperDetected != null && creeperDetected < detectionDistance) {
 						if (ticksElapsed % config.alertInterval == 0) {
 							Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, config.alertPitch, config.alertVolume));
 						}
 
 						if (config.alertTextVisible) {
 							//Logic to make the text become more red as they approach a creeper
-							int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
+							int value = Math.clamp(Math.round((255 / detectionDistance) * creeperDetected), 0, 255);
 							int textColor = (255 << 16) | (value << 8) | value;
 
-							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(textColor);
+							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", creeperDetected) + "m away.").withColor(textColor);
 							client.player.sendOverlayMessage(message);
 						}
 					}
@@ -76,6 +67,23 @@ public class CreeperNotifier implements ClientModInitializer {
 				ticksElapsed++;
 			}
 		});
+	}
+
+	//Get distance of closest entity of specified type. Returns null if none
+	private static <T extends Entity> Float getClosestEntity(@NonNull Minecraft client, Class<T> detectionEntity, int searchRange){
+		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
+
+		Float minDistance = null;
+
+		AABB searchBox = client.player.getBoundingBox().inflate(searchRange);
+
+        for (Entity entity : client.level.getEntitiesOfClass(detectionEntity, searchBox)) {
+			float distance = entity.distanceTo(client.player);
+			if (minDistance == null || distance <= minDistance) {
+				minDistance = distance;
+			}
+		}
+		return minDistance;
 	}
 
 	private static boolean isEnabledInGamemode(Minecraft client, ConfigSettings config) {
