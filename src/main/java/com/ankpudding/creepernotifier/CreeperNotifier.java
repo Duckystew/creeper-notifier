@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class CreeperNotifier implements ClientModInitializer {
 	public static final String MOD_ID = "creeper-notifier";
@@ -35,13 +36,14 @@ public class CreeperNotifier implements ClientModInitializer {
 		ConfigHandler.init();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-
             ConfigSettings config = ConfigHandler.getInstance();
 
-			if(config.modEnabled) {
-				float detectionDistance = config.creeperDetectionDistance;
-				//Make sure that the player and level is not null aka only run the detection code when the player is in a game.
-				if (client.level != null && client.player != null) {
+			if (client.level != null && client.player != null) {
+				boolean enabledInGamemode = isEnabledInGamemode(client, config);
+
+				if (config.modEnabled && enabledInGamemode) {
+					float detectionDistance = config.creeperDetectionDistance;
+					//Make sure that the player and level is not null aka only run the detection code when the player is in a game.
 					boolean creeperDetected = false;
 					float minDistance = detectionDistance;
 
@@ -64,16 +66,47 @@ public class CreeperNotifier implements ClientModInitializer {
 						if (config.alertTextVisible) {
 							//Logic to make the text become more red as they approach a creeper
 							int value = Math.clamp(Math.round((255 / detectionDistance) * minDistance), 0, 255);
-							Color color = new Color(255, value, value);
+							int textColor = (255 << 16) | (value << 8) | value;
 
-							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(color.getRGB());
+							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", minDistance) + "m away.").withColor(textColor);
 							client.player.sendOverlayMessage(message);
 						}
 					}
 				}
+				ticksElapsed++;
 			}
-			ticksElapsed++;
 		});
+	}
+
+	private static boolean isEnabledInGamemode(Minecraft client, ConfigSettings config) {
+		boolean enabledInGamemode = false;
+
+		switch (Objects.requireNonNull(client.gameMode).getPlayerMode()){
+			case ADVENTURE -> {
+				if (config.enableInAdventure){
+					enabledInGamemode = true;
+				}
+			}
+
+			case SPECTATOR -> {
+				if (config.enableInSpectator){
+					enabledInGamemode = true;
+				}
+			}
+
+			case SURVIVAL -> {
+				if (config.enableInSurvival){
+					enabledInGamemode = true;
+				}
+			}
+
+			case CREATIVE -> {
+				if (config.enableInCreative){
+					enabledInGamemode = true;
+				}
+			}
+		}
+		return enabledInGamemode;
 	}
 
 	public static Identifier id(String path) {

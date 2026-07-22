@@ -34,4 +34,24 @@ public class ConfigSettings {
     @AutoGen(category = "main", group = "alertSettings")
     @IntSlider(min = 1, max = 40, step = 1)
     public int alertInterval = 20;
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "gamemodeToggles")
+    @TickBox
+    public boolean enableInSurvival = true;
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "gamemodeToggles")
+    @TickBox
+    public boolean enableInAdventure = true;
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "gamemodeToggles")
+    @TickBox
+    public boolean enableInCreative = false;
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "gamemodeToggles")
+    @TickBox
+    public boolean enableInSpectator = false;
 }
