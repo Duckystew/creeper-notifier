@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 
 public class YACLConfig extends ConfigSettings {
     public static ConfigClassHandler<ConfigSettings> HANDLER = ConfigClassHandler.createBuilder(ConfigSettings.class)
-            .id(Identifier.fromNamespaceAndPath("creeper-notifier", "config"))
+            .id(CreeperNotifier.id("config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
                     .setPath(FabricLoader.getInstance().getConfigDir().resolve("creeper-notifier.json5"))
                     .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
