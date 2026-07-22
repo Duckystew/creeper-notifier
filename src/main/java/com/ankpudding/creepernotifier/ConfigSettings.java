@@ -23,7 +23,7 @@ public class ConfigSettings {
     @SerialEntry
     @AutoGen(category = "main", group = "alertSettings")
     @FloatSlider(min = 0.0f, max = 1.0f, step = 0.1f)
-    public float alertVolume = 5.0f;
+    public float alertVolume = 1.0f;
 
     @SerialEntry
     @AutoGen(category = "main", group = "alertSettings")
