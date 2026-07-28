@@ -19,6 +19,12 @@ public class ConfigSettings {
     @IntSlider(min = 0, max = 25, step = 1)
     public int creeperDetectionDistance = 10;
 
+    @SerialEntry
+    @AutoGen(category = "main")
+    @StringField
+    @CustomDescription(value ="Changes the warning text. Replaces %s with distance to creeper.")
+    public String alertTextFormatting = "Creeper Nearby! %sm away.";
+
 
     @SerialEntry
     @AutoGen(category = "main", group = "alertSettings")

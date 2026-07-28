@@ -11,5 +11,6 @@
   "yacl3.config.creeper-notifier:config.enableInSurvival": "Aktivera mod i överlevnadsläget",
   "yacl3.config.creeper-notifier:config.enableInAdventure": "Aktivera mod i äventyrsläget",
   "yacl3.config.creeper-notifier:config.enableInCreative": "Aktivera mod i kreativläget",
-  "yacl3.config.creeper-notifier:config.enableInSpectator": "Aktivera mod i spektatorläget"
+  "yacl3.config.creeper-notifier:config.enableInSpectator": "Aktivera mod i spektatorläget",
+  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Varningstext formatering"
 }

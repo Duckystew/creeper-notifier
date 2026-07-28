@@ -59,7 +59,8 @@ public class CreeperNotifier implements ClientModInitializer {
 							int value = Math.clamp(Math.round((255 / detectionDistance) * creeperDetected), 0, 255);
 							int textColor = (255 << 16) | (value << 8) | value;
 
-							Component message = Component.literal("Creeper Nearby! " + String.format("%.1f", creeperDetected) + "m away.").withColor(textColor);
+							String alertTextFormatting = config.alertTextFormatting;
+							Component message = Component.literal(String.format(alertTextFormatting, String.format("%.1f", creeperDetected))).withColor(textColor);
 							client.player.sendOverlayMessage(message);
 						}
 					}

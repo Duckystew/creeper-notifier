@@ -11,5 +11,6 @@
   "yacl3.config.creeper-notifier:config.enableInSurvival": "Enable mod in survival mode",
   "yacl3.config.creeper-notifier:config.enableInAdventure": "Enable mod in adventure mode",
   "yacl3.config.creeper-notifier:config.enableInCreative": "Enable mod in creative mode",
-  "yacl3.config.creeper-notifier:config.enableInSpectator": "Enable mod in spectator mode"
+  "yacl3.config.creeper-notifier:config.enableInSpectator": "Enable mod in spectator mode",
+  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Alert text formatting"
 }
