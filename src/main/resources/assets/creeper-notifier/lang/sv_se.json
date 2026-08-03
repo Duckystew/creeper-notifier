@@ -1,6 +1,7 @@
 {
   "yacl3.config.creeper-notifier:config.category.main": "Inställningar",
   "yacl3.config.creeper-notifier:config.category.main.group.alertSettings": "Varningsinställningar",
+  "yacl3.config.creeper-notifier:config.category.main.group.messageConfig": "Text",
   "yacl3.config.creeper-notifier:config.category.main.group.gamemodeToggles": "Aktiverade spellägen",
   "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Upptäcktsavstånd",
   "yacl3.config.creeper-notifier:config.modEnabled": "Aktivera Mod",
@@ -12,5 +13,9 @@
   "yacl3.config.creeper-notifier:config.enableInAdventure": "Aktivera mod i äventyrsläget",
   "yacl3.config.creeper-notifier:config.enableInCreative": "Aktivera mod i kreativläget",
   "yacl3.config.creeper-notifier:config.enableInSpectator": "Aktivera mod i spektatorläget",
-  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Varningstext formatering"
+  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Varningstext formatering",
+  "yacl3.config.creeper-notifier:config.alertTextFront": "Varningstext framför",
+  "yacl3.config.creeper-notifier:config.alertTextBack": "Varningstext backom",
+  "yacl3.config.creeper-notifier:config.alertTextLeft": "Varningstext vänster",
+  "yacl3.config.creeper-notifier:config.alertTextRight": "Varningstext höger"
 }

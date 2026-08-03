@@ -1,6 +1,7 @@
 {
   "yacl3.config.creeper-notifier:config.category.main": "Settings",
   "yacl3.config.creeper-notifier:config.category.main.group.alertSettings": "Alert Settings",
+  "yacl3.config.creeper-notifier:config.category.main.group.messageConfig": "Text",
   "yacl3.config.creeper-notifier:config.category.main.group.gamemodeToggles": "Gamemode Toggles",
   "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Detection Distance",
   "yacl3.config.creeper-notifier:config.modEnabled": "Mod Enabled",
@@ -12,5 +13,10 @@
   "yacl3.config.creeper-notifier:config.enableInAdventure": "Enable mod in adventure mode",
   "yacl3.config.creeper-notifier:config.enableInCreative": "Enable mod in creative mode",
   "yacl3.config.creeper-notifier:config.enableInSpectator": "Enable mod in spectator mode",
-  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Alert text formatting"
+  "yacl3.config.creeper-notifier:config.alertTextFormatting": "Alert text formatting",
+  "yacl3.config.creeper-notifier:config.alertTextFront": "Alert text front",
+  "yacl3.config.creeper-notifier:config.alertTextBack": "Alert text back",
+  "yacl3.config.creeper-notifier:config.alertTextLeft": "Alert text left",
+  "yacl3.config.creeper-notifier:config.alertTextRight": "Alert text right"
+
 }

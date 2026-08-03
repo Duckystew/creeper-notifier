@@ -20,10 +20,30 @@ public class ConfigSettings {
     public int creeperDetectionDistance = 10;
 
     @SerialEntry
-    @AutoGen(category = "main")
+    @AutoGen(category = "main", group = "messageConfig")
     @StringField
-    @CustomDescription(value ="Changes the warning text. Replaces %s with distance to creeper.")
-    public String alertTextFormatting = "Creeper Nearby! %sm away.";
+    @CustomDescription(value ="Changes the warning text. Replaces the first %s with distance to creeper and replaces the second %s with where the creeper was detected relative to you.")
+    public String alertTextFormatting = "Creeper Nearby! %sm away. %s";
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "messageConfig")
+    @StringField
+    public String alertTextFront = "In front of you!";
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "messageConfig")
+    @StringField
+    public String alertTextBack = "Behind you!";
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "messageConfig")
+    @StringField
+    public String alertTextLeft = "On your left!";
+
+    @SerialEntry
+    @AutoGen(category = "main", group = "messageConfig")
+    @StringField
+    public String alertTextRight = "On your right!";
 
 
     @SerialEntry
