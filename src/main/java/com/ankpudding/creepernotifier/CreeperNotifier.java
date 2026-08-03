@@ -14,7 +14,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,10 +120,10 @@ public class CreeperNotifier implements ClientModInitializer {
 			float distance = entity.distanceTo(client.player);
 			if (minDistance == null || distance <= minDistance) {
 				minDistance = distance;
-				minEntity = (T) entity;
+				minEntity = entity;
 			}
 		}
-		return new EntityInstance<T>(minEntity, minDistance);
+		return new EntityInstance<>(minEntity, minDistance);
 	}
 
 	private static boolean isEnabledInGamemode(Minecraft client, ConfigSettings config) {
