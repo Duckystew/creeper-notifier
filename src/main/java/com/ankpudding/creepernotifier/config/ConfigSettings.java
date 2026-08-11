@@ -1,4 +1,4 @@
-package com.ankpudding.creepernotifier;
+package com.ankpudding.creepernotifier.config;
 
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.*;

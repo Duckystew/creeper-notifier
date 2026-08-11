@@ -1,4 +1,4 @@
-package com.ankpudding.creepernotifier;
+package com.ankpudding.creepernotifier.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

@@ -18,7 +18,9 @@
 		"client": [
 			"com.ankpudding.creepernotifier.CreeperNotifier"
 		],
-		"modmenu": [ "com.ankpudding.creepernotifier.ModMenuCompat" ]
+		"modmenu": [
+			"com.ankpudding.creepernotifier.config.ModMenuCompat"
+		]
 	},
 	"mixins": [
 		"creeper-notifier.mixins.json"
