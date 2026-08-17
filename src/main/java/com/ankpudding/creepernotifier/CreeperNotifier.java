@@ -19,6 +19,8 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 public class CreeperNotifier implements ClientModInitializer {
 	public static final String MOD_ID = "creeper-notifier";
 
@@ -36,44 +38,52 @@ public class CreeperNotifier implements ClientModInitializer {
 		// Proceed with mild caution.
 
 		ConfigHandler.init();
+		ConfigHandler configHandler = new ConfigHandler();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            ConfigHandler configHandler = new ConfigHandler();
-
 			//Check if that both client.level and client.player is not null. To prevent detection code from running when not in a game.
-			if (client.level != null && client.player != null) {
-
-				boolean enabledInGamemode = configHandler.isDetectionEnabledInGamemode(client);
-
-				if (configHandler.settings.modEnabled && enabledInGamemode) {
-					float detectionDistance = configHandler.settings.creeperDetectionDistance;
-
-					EntityInstance<Creeper> detectedEntity = getClosestEntity(client, Creeper.class, (int) Math.ceil(detectionDistance));
-
-					if (detectedEntity.distance != null && detectedEntity.distance < detectionDistance) {
-						if (ticksElapsed % configHandler.settings.alertInterval == 0) {
-							Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, configHandler.settings.alertPitch, configHandler.settings.alertVolume));
-						}
-
-						if (configHandler.settings.alertTextVisible) {
-							float entityRelativeDirection = getPlayerYawRelativeToEntity(client.player, detectedEntity);
-
-							//Logic to make the text become more red as they approach a creeper
-							int value = Math.clamp(Math.round((255 / detectionDistance) * detectedEntity.distance), 0, 255);
-							int textColor = (255 << 16) | (value << 8) | value;
-
-							String alertTextFormatting = configHandler.settings.alertTextFormatting;
-							Component message = Component.literal(String.format(alertTextFormatting,
-									String.format("%.1f", detectedEntity.distance),
-									configHandler.entityRelativePositionToWarningText(entityRelativeDirection)
-							)).withColor(textColor);
-							client.player.sendOverlayMessage(message);
-						}
-					}
-				}
-				ticksElapsed++;
+			if (client.level == null || client.player == null) {
+				return;
 			}
+
+			boolean enabledInGamemode = configHandler.isDetectionEnabledInGamemode(client);
+
+			//Check if the mod is enabled
+			if (!configHandler.settings.modEnabled || !enabledInGamemode) {
+				return;
+			}
+
+			float detectionDistance = configHandler.settings.creeperDetectionDistance;
+
+			EntityInstance<Creeper> trackedEntity = getClosestEntity(client, Creeper.class, (int) Math.ceil(detectionDistance));
+
+			if (trackedEntity.distance != null && trackedEntity.distance < detectionDistance) {
+				if (ticksElapsed % configHandler.settings.alertInterval == 0) {
+					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, configHandler.settings.alertPitch, configHandler.settings.alertVolume));
+				}
+
+				if (configHandler.settings.alertTextVisible) {
+					displaySimpleAlertText(client, detectionDistance, trackedEntity, configHandler);
+				}
+			}
+
+			ticksElapsed++;
 		});
+	}
+
+	private static void displaySimpleAlertText(Minecraft client, float detectionDistance, EntityInstance<? extends Entity> entity, ConfigHandler configHandler){
+		float entityRelativeDirection = getPlayerYawRelativeToEntity(Objects.requireNonNull(client.player), entity);
+
+		//Logic to make the text become more red as they approach a creeper
+		int value = Math.clamp(Math.round((255 / detectionDistance) * entity.distance), 0, 255);
+		int textColor = (255 << 16) | (value << 8) | value;
+
+		String alertTextFormatting = configHandler.settings.alertTextFormatting;
+		Component message = Component.literal(String.format(alertTextFormatting,
+				String.format("%.1f", entity.distance),
+				configHandler.entityRelativePositionToWarningText(entityRelativeDirection)
+		)).withColor(textColor);
+		client.player.sendOverlayMessage(message);
 	}
 
 	private static <T extends Entity> float getPlayerYawRelativeToEntity(LocalPlayer player, EntityInstance<T> instance){
