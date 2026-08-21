@@ -1,7 +1,7 @@
 {
 	"required": true,
-	"package": "com.ankpudding.creepernotifier.mixin",
-	"compatibilityLevel": "JAVA_25",
+	"package": "com.example.mixin",
+	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ExampleMixin"
 	],
