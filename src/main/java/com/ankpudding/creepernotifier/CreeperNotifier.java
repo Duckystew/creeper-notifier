@@ -82,7 +82,7 @@ public class CreeperNotifier implements ClientModInitializer {
 				String.format("%.1f", entity.distance),
 				configHandler.entityRelativePositionToWarningText(entityRelativeDirection)
 		)).withColor(textColor);
-		client.player.sendOverlayMessage(message);
+		((AlertMessageInterface)client.player).sendOverlayMessage(message);
 	}
 
 	private static <T extends Entity> float getPlayerYawRelativeToEntity(LocalPlayer player, EntityInstance<T> instance){
