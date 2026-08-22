@@ -8,8 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -96,7 +96,7 @@ public class CreeperNotifier implements ClientModInitializer {
     }
 
 	//Get distance of closest entity of specified type. Returns null if none
-	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, Class<T> detectionEntity, int searchRange){
+	private static <T extends Entity> EntityInstance<T> getClosestEntity(Minecraft client, Class<T> detectionEntity, int searchRange){
 		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
 
 		Float minDistance = null;
@@ -114,7 +114,7 @@ public class CreeperNotifier implements ClientModInitializer {
 		return new EntityInstance<>(minEntity, minDistance);
 	}
 
-	public static Identifier id(String path) {
-		return Identifier.fromNamespaceAndPath(MOD_ID, path);
+	public static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 }
