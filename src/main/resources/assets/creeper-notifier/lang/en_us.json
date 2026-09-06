@@ -9,7 +9,8 @@
   "yacl3.config.creeper-notifier:config.enableInSpectator": "Enable mod in spectator mode",
 
   "yacl3.config.creeper-notifier:config.category.detection": "Detection",
-  "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper Detection Distance",
+  "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Entity Detection Distance",
+  "yacl3.config.creeper-notifier:config.entityToDetect": "Entity to detect",
 
   "yacl3.config.creeper-notifier:config.category.alert": "Alert",
   "yacl3.config.creeper-notifier:config.category.alert.group.messageConfig": "Appearance",
