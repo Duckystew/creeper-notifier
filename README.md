@@ -2,4 +2,4 @@
 
 ## Description
 
-A simple mod to help prevent your builds from being griefed by creepers.
+A simple mod to help prevent your builds from being griefed by creepers. Use YACL for a config menu.
