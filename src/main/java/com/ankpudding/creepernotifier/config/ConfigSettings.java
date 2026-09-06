@@ -2,19 +2,18 @@ package com.ankpudding.creepernotifier.config;
 
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.*;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Creeper;
 
 public class ConfigSettings {
     @SerialEntry
     @AutoGen(category = "toggles")
     @TickBox
+    @CustomDescription(value = "Toggles all mod functionality")
     public boolean modEnabled = true;
 
     @SerialEntry
     @AutoGen(category = "toggles")
     @TickBox
+    @CustomDescription(value = "Toggles the alert text on or off")
     public boolean alertTextVisible = true;
 
     @SerialEntry
@@ -40,6 +39,7 @@ public class ConfigSettings {
     @SerialEntry
     @AutoGen(category = "detection")
     @IntSlider(min = 0, max = 25, step = 1)
+    @CustomDescription(value = "Distance for detection. (In blocks)")
     public int creeperDetectionDistance = 10;
 
     @SerialEntry
@@ -76,15 +76,18 @@ public class ConfigSettings {
     @SerialEntry
     @AutoGen(category = "alert", group = "alertSettings")
     @FloatSlider(min = 0.0f, max = 1.0f, step = 0.1f)
+    @CustomDescription(value = "Change the volume of the alert")
     public float alertVolume = 1.0f;
 
     @SerialEntry
     @AutoGen(category = "alert", group = "alertSettings")
     @FloatSlider(min = 0.0f, max = 2.0f, step = 0.1f)
+    @CustomDescription(value = "Change the pitch of the alert")
     public float alertPitch = 2.0f;
 
     @SerialEntry
     @AutoGen(category = "alert", group = "alertSettings")
     @IntSlider(min = 1, max = 40, step = 1)
+    @CustomDescription(value = "Time between each alert sound (In ticks)")
     public int alertInterval = 20;
 }
