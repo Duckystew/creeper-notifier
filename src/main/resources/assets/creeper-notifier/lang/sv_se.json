@@ -9,7 +9,8 @@
   "yacl3.config.creeper-notifier:config.enableInSpectator": "Aktivera mod i åskådarläge",
 
   "yacl3.config.creeper-notifier:config.category.detection": "Detektering",
-  "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Creeper detekteringsdistans",
+  "yacl3.config.creeper-notifier:config.creeperDetectionDistance": "Entitet detekteringsdistans",
+  "yacl3.config.creeper-notifier:config.entityToDetect": "Entitet att detektera",
 
   "yacl3.config.creeper-notifier:config.category.alert": "Varning",
   "yacl3.config.creeper-notifier:config.category.alert.group.messageConfig": "Utseende",
