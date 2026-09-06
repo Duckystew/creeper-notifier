@@ -48,14 +48,14 @@ public class CreeperNotifier implements ClientModInitializer {
 
 			boolean enabledInGamemode = config.isDetectionEnabledInGamemode(client);
 
-			//Check if the mod is enabled
+			//Continue only if the mod is enabled globally and is enabled in current gamemode
 			if (!config.settings.modEnabled || !enabledInGamemode) {
 				return;
 			}
 
 			float detectionDistance = config.settings.creeperDetectionDistance;
 
-			//Get the closest entity of a class
+			//Get the closest entity that is specified in the config. Returns null if none exist within detectionDistance.
 			EntityInstance<? extends Entity> trackedEntity = getClosestEntity(client, config.getEntityToDetect(), (int) Math.ceil(detectionDistance));
 
 			if (trackedEntity.distance != null && trackedEntity.distance < detectionDistance) {

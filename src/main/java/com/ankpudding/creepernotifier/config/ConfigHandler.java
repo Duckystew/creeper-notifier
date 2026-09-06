@@ -38,6 +38,7 @@ public class ConfigHandler {
         return BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.bySeparator(settings.entityToDetect, ':'));
     }
 
+    //Returns if the mod should be enabled in current gamemode.
     public boolean isDetectionEnabledInGamemode(Minecraft client) {
         boolean enabledInGamemode = false;
 
