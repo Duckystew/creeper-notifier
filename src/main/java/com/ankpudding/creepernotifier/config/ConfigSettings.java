@@ -43,6 +43,11 @@ public class ConfigSettings {
     public int creeperDetectionDistance = 10;
 
     @SerialEntry
+    @AutoGen(category = "detection")
+    @StringField
+    public String entityToDetect = "minecraft:creeper";
+
+    @SerialEntry
     @AutoGen(category = "alert", group = "messageConfig")
     @StringField
     @CustomDescription(value ="Changes the warning text. Replaces the first %s with distance to creeper and replaces the second %s with where the creeper was detected relative to you.")

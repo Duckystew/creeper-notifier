@@ -13,7 +13,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ public class CreeperNotifier implements ClientModInitializer {
 		// Proceed with mild caution.
 
 		ConfigHandler.init();
-		ConfigHandler configHandler = new ConfigHandler();
+		ConfigHandler config = new ConfigHandler();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			//Check if that both client.level and client.player is not null. To prevent detection code from running when not in a game.
@@ -46,24 +46,25 @@ public class CreeperNotifier implements ClientModInitializer {
 				return;
 			}
 
-			boolean enabledInGamemode = configHandler.isDetectionEnabledInGamemode(client);
+			boolean enabledInGamemode = config.isDetectionEnabledInGamemode(client);
 
 			//Check if the mod is enabled
-			if (!configHandler.settings.modEnabled || !enabledInGamemode) {
+			if (!config.settings.modEnabled || !enabledInGamemode) {
 				return;
 			}
 
-			float detectionDistance = configHandler.settings.creeperDetectionDistance;
+			float detectionDistance = config.settings.creeperDetectionDistance;
 
-			EntityInstance<Creeper> trackedEntity = getClosestEntity(client, Creeper.class, (int) Math.ceil(detectionDistance));
+			//Get the closest entity of a class
+			EntityInstance<? extends Entity> trackedEntity = getClosestEntity(client, config.getEntityToDetect(), (int) Math.ceil(detectionDistance));
 
 			if (trackedEntity.distance != null && trackedEntity.distance < detectionDistance) {
-				if (ticksElapsed % configHandler.settings.alertInterval == 0) {
-					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, configHandler.settings.alertPitch, configHandler.settings.alertVolume));
+				if (ticksElapsed % config.settings.alertInterval == 0) {
+					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, config.settings.alertPitch, config.settings.alertVolume));
 				}
 
-				if (configHandler.settings.alertTextVisible) {
-					displaySimpleAlertText(client, detectionDistance, trackedEntity, configHandler);
+				if (config.settings.alertTextVisible) {
+					displaySimpleAlertText(client, detectionDistance, trackedEntity, config);
 				}
 			}
 
@@ -96,7 +97,7 @@ public class CreeperNotifier implements ClientModInitializer {
 		return Mth.wrapDegrees(targetYaw - player.getYRot());
     }
 
-	//Get distance of closest entity of specified type. Returns null if none
+	//Get distance of closest entity of specified class. Returns null if none. Legacy code
 	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, Class<T> detectionEntity, int searchRange){
 		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
 
@@ -110,6 +111,31 @@ public class CreeperNotifier implements ClientModInitializer {
 			if (minDistance == null || distance <= minDistance) {
 				minDistance = distance;
 				minEntity = entity;
+			}
+		}
+		return new EntityInstance<>(minEntity, minDistance);
+	}
+	//Get distance of closest entity of specified EntityType. Returns null if none
+	//Suppresses unchecked casting
+	@SuppressWarnings("unchecked")
+	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, EntityType<T> detectionEntity, int searchRange){
+		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
+
+		Float minDistance = null;
+		T minEntity = null;
+
+		AABB searchBox = client.player.getBoundingBox().inflate(searchRange);
+
+		//Get all nearby entities and filter them by if their type is the same as in detectionEntity
+		for (Entity entity : client.level.getEntitiesOfClass(
+				Entity.class,
+				searchBox,
+				entity -> entity.getType() == detectionEntity)
+		) {
+			float distance = entity.distanceTo(client.player);
+			if (minDistance == null || distance <= minDistance) {
+				minDistance = distance;
+				minEntity = (T)entity;
 			}
 		}
 		return new EntityInstance<>(minEntity, minDistance);

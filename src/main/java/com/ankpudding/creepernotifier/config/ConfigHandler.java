@@ -3,6 +3,10 @@ package com.ankpudding.creepernotifier.config;
 import com.ankpudding.creepernotifier.CreeperNotifier;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 
 import java.util.Objects;
 
@@ -28,6 +32,10 @@ public class ConfigHandler {
         else{
             CreeperNotifier.LOGGER.warn("CreeperNotifier: Did not find Mod Menu or YACL. No configuration available");
         }
+    }
+
+    public EntityType<? extends Entity> getEntityToDetect(){
+        return BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.bySeparator(settings.entityToDetect, ':'));
     }
 
     public boolean isDetectionEnabledInGamemode(Minecraft client) {
