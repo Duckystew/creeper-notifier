@@ -97,7 +97,7 @@ public class CreeperNotifier implements ClientModInitializer {
     }
 
 	//Get distance of closest entity of specified class. Returns null if none. Legacy code
-	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, Class<T> detectionEntity, int searchRange){
+	private static <T extends Entity> EntityInstance<T> getClosestEntity(Minecraft client, Class<T> detectionEntity, int searchRange){
 		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
 
 		Float minDistance = null;
@@ -117,7 +117,7 @@ public class CreeperNotifier implements ClientModInitializer {
 	//Get distance of closest entity of specified EntityType. Returns null if none
 	//Suppresses unchecked casting
 	@SuppressWarnings("unchecked")
-	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, EntityType<T> detectionEntity, int searchRange){
+	private static <T extends Entity> EntityInstance<T> getClosestEntity(Minecraft client, EntityType<T> detectionEntity, int searchRange){
 		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
 
 		Float minDistance = null;
