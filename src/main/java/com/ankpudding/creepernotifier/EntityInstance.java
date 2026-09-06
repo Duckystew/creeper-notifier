@@ -1,6 +1,7 @@
 package com.ankpudding.creepernotifier;
 
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 
 public class EntityInstance<T extends Entity> {
     T entity;
