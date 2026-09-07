@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +59,7 @@ public class CreeperNotifier implements ClientModInitializer {
 			//Get the closest entity that is specified in the config. Returns null if none exist within detectionDistance.
 			EntityInstance<? extends Entity> trackedEntity = getClosestEntity(client, config.getEntityToDetect(), (int) Math.ceil(detectionDistance));
 
-			if (trackedEntity.distance != null && trackedEntity.distance < detectionDistance) {
+			if (trackedEntity != null && trackedEntity.distance < detectionDistance) {
 				if (ticksElapsed % config.settings.alertInterval == 0) {
 					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.EXPERIENCE_ORB_PICKUP, config.settings.alertPitch, config.settings.alertVolume));
 				}
@@ -97,31 +98,14 @@ public class CreeperNotifier implements ClientModInitializer {
 		return Mth.wrapDegrees(targetYaw - player.getYRot());
     }
 
-	//Get distance of closest entity of specified class. Returns null if none. Legacy code
-	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, Class<T> detectionEntity, int searchRange){
-		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
-
-		Float minDistance = null;
-		T minEntity = null;
-
-		AABB searchBox = client.player.getBoundingBox().inflate(searchRange);
-
-        for (T entity : client.level.getEntitiesOfClass(detectionEntity, searchBox)) {
-			float distance = entity.distanceTo(client.player);
-			if (minDistance == null || distance <= minDistance) {
-				minDistance = distance;
-				minEntity = entity;
-			}
-		}
-		return new EntityInstance<>(minEntity, minDistance);
-	}
 	//Get distance of closest entity of specified EntityType. Returns null if none
 	//Suppresses unchecked casting
+	@Nullable
 	@SuppressWarnings("unchecked")
 	private static <T extends Entity> EntityInstance<T> getClosestEntity(@NonNull Minecraft client, EntityType<T> detectionEntity, int searchRange){
 		if (client.level == null || client.player == null){throw new RuntimeException("CreeperNotifier: client.level or client.player is null");}
 
-		Float minDistance = null;
+		float minDistance = Float.MAX_VALUE;
 		T minEntity = null;
 
 		AABB searchBox = client.player.getBoundingBox().inflate(searchRange);
@@ -133,12 +117,12 @@ public class CreeperNotifier implements ClientModInitializer {
 				entity -> entity.getType() == detectionEntity)
 		) {
 			float distance = entity.distanceTo(client.player);
-			if (minDistance == null || distance <= minDistance) {
+			if (distance <= minDistance) {
 				minDistance = distance;
 				minEntity = (T)entity;
 			}
 		}
-		return new EntityInstance<>(minEntity, minDistance);
+		return minEntity == null ? null : new EntityInstance<>(minEntity, minDistance);
 	}
 
 	public static Identifier id(String path) {
