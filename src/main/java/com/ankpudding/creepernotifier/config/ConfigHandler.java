@@ -4,7 +4,7 @@ import com.ankpudding.creepernotifier.CreeperNotifier;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
@@ -35,7 +35,7 @@ public class ConfigHandler {
     }
 
     public EntityType<? extends Entity> getEntityToDetect(){
-        return BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.bySeparator(settings.entityToDetect, ':'));
+        return BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.bySeparator(settings.entityToDetect, ':'));
     }
 
     //Returns if the mod should be enabled in current gamemode.
